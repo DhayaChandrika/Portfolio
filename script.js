@@ -9,3 +9,7 @@ const observer = new IntersectionObserver(
 );
 
 document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+// Set dynamic year in footer
+const yearEl = document.getElementById("year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
