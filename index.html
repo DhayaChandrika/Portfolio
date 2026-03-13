@@ -1,738 +1,465 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="description" content="Dhaya Chandrika Vanumu — Backend Software Engineer specialising in Node.js, REST APIs, and PostgreSQL. Hyderabad, India."/>
-<title>Dhaya Chandrika Vanumu — Backend Engineer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<style>
-/* ═══════════════════════════════════════
-   RESET & TOKENS
-═══════════════════════════════════════ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --c-bg:        #0b0d12;
-  --c-surface:   #111318;
-  --c-card:      #161a22;
-  --c-border:    #1f2333;
-  --c-border-hi: #2e3550;
-  --c-teal:      #0fd9bc;
-  --c-teal-dim:  rgba(15,217,188,.12);
-  --c-teal-glow: rgba(15,217,188,.06);
-  --c-amber:     #f4c05a;
-  --c-text:      #dde3f0;
-  --c-sub:       #8a93b2;
-  --c-dim:       #3d4566;
-  --r:           6px;
-  --transition:  .22s ease;
-  --max:         1100px;
-}
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: var(--c-bg);
-  color: var(--c-text);
-  line-height: 1.65;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Dhaya Chandrika Vanumu — Backend Software Engineer specialising in Node.js, REST APIs, and PostgreSQL. Hyderabad, India."
+    />
+    <title>Dhaya Chandrika Vanumu — Backend Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <div class="nav-brand">Dhaya <span>Chandrika</span></div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#project">Project</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
 
-/* ═══════════════════════════════════════
-   UTILITIES
-═══════════════════════════════════════ */
-.mono { font-family: 'JetBrains Mono', monospace; }
-.container { max-width: var(--max); margin: 0 auto; padding: 0 5vw; }
-.section-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--c-teal); margin-bottom: .5rem;
-}
-h2 {
-  font-size: clamp(1.75rem, 3.5vw, 2.4rem);
-  font-weight: 800; letter-spacing: -.025em;
-  margin-bottom: 2.5rem; color: var(--c-text);
-}
-h2 em { font-style: normal; color: var(--c-teal); }
-
-/* ═══════════════════════════════════════
-   NAV
-═══════════════════════════════════════ */
-nav {
-  position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
-  height: 58px; display: flex; align-items: center; justify-content: space-between;
-  padding: 0 5vw;
-  background: rgba(11,13,18,.88); backdrop-filter: blur(20px) saturate(1.4);
-  border-bottom: 1px solid var(--c-border);
-}
-.nav-brand {
-  font-weight: 700; font-size: .9rem; color: var(--c-text);
-  letter-spacing: -.01em;
-}
-.nav-brand span { color: var(--c-teal); }
-.nav-links { display: flex; gap: 2rem; }
-.nav-links a {
-  font-size: .82rem; font-weight: 500; color: var(--c-sub);
-  text-decoration: none; transition: color var(--transition);
-}
-.nav-links a:hover { color: var(--c-text); }
-
-/* ═══════════════════════════════════════
-   HERO
-═══════════════════════════════════════ */
-.hero {
-  min-height: 100vh; display: flex; align-items: center;
-  padding: 100px 5vw 80px;
-  position: relative; overflow: hidden;
-}
-.hero::before {
-  content: ''; position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 70% 60% at 75% 50%, rgba(15,217,188,.055) 0%, transparent 65%),
-    radial-gradient(ellipse 45% 40% at 15% 75%, rgba(244,192,90,.035) 0%, transparent 60%);
-  pointer-events: none;
-}
-.hero-dot-grid {
-  position: absolute; inset: 0; z-index: 0;
-  background-image: radial-gradient(circle, rgba(255,255,255,.045) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-.hero-inner { position: relative; z-index: 1; max-width: 700px; }
-.hero-status {
-  display: inline-flex; align-items: center; gap: .55rem;
-  background: var(--c-teal-dim); border: 1px solid rgba(15,217,188,.2);
-  color: var(--c-teal); font-size: .75rem; font-weight: 600;
-  letter-spacing: .06em; padding: .35rem 1rem;
-  border-radius: 100px; margin-bottom: 2rem;
-  font-family: 'JetBrains Mono', monospace;
-}
-.hero-status::before {
-  content: ''; width: 7px; height: 7px; border-radius: 50%;
-  background: var(--c-teal); flex-shrink: 0;
-  box-shadow: 0 0 8px var(--c-teal);
-  animation: blink 2.2s ease-in-out infinite;
-}
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-.hero h1 {
-  font-size: clamp(2.8rem, 6.5vw, 5rem);
-  font-weight: 800; letter-spacing: -.04em;
-  line-height: 1.05; margin-bottom: 1.2rem; color: var(--c-text);
-}
-.hero h1 .accent { color: var(--c-teal); }
-.hero-sub {
-  font-size: 1.05rem; color: var(--c-sub); line-height: 1.75;
-  max-width: 500px; margin-bottom: 2rem;
-}
-.hero-sub strong { color: var(--c-text); font-weight: 600; }
-.hero-chips { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 2.5rem; }
-.hero-chip {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .7rem; padding: .28rem .7rem;
-  background: var(--c-card); border: 1px solid var(--c-border);
-  color: var(--c-sub); border-radius: 4px;
-  transition: border-color var(--transition), color var(--transition);
-}
-.hero-chip:hover { border-color: var(--c-teal); color: var(--c-teal); }
-.hero-actions { display: flex; gap: .9rem; flex-wrap: wrap; }
-.btn {
-  display: inline-flex; align-items: center; gap: .5rem;
-  font-weight: 700; font-size: .85rem; letter-spacing: .02em;
-  padding: .7rem 1.6rem; border-radius: var(--r);
-  text-decoration: none; transition: all var(--transition);
-  cursor: pointer; border: none;
-}
-.btn-primary { background: var(--c-teal); color: #080d10; }
-.btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 6px 22px rgba(15,217,188,.28); }
-.btn-secondary { background: transparent; border: 1.5px solid var(--c-border-hi); color: var(--c-sub); }
-.btn-secondary:hover { border-color: var(--c-teal); color: var(--c-teal); }
-
-/* ═══════════════════════════════════════
-   MARQUEE
-═══════════════════════════════════════ */
-.marquee-wrap {
-  border-top: 1px solid var(--c-border);
-  border-bottom: 1px solid var(--c-border);
-  background: var(--c-surface); overflow: hidden;
-  padding: .65rem 0;
-}
-.marquee-track {
-  display: flex; gap: 0;
-  animation: marquee 28s linear infinite;
-  width: max-content;
-}
-.marquee-track:hover { animation-play-state: paused; }
-@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-.marquee-item {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .72rem; color: var(--c-dim);
-  padding: 0 2rem; white-space: nowrap; letter-spacing: .05em;
-}
-.marquee-item span { color: var(--c-teal); margin: 0 .4rem; }
-
-/* ═══════════════════════════════════════
-   ABOUT
-═══════════════════════════════════════ */
-#about { padding: 6rem 0; }
-#about .container { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-.about-body p { font-size: .97rem; color: var(--c-sub); line-height: 1.8; margin-bottom: 1.1rem; }
-.about-body p strong { color: var(--c-text); font-weight: 600; }
-.about-meta { display: grid; gap: .6rem; margin-top: 1.5rem; }
-.meta-row {
-  display: flex; align-items: center; gap: .75rem;
-  font-size: .88rem; color: var(--c-sub);
-}
-.meta-row .meta-icon { color: var(--c-teal); font-size: .8rem; width: 1.2rem; flex-shrink: 0; }
-.meta-row a { color: var(--c-teal); text-decoration: none; }
-.meta-row a:hover { text-decoration: underline; }
-.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.stat-card {
-  background: var(--c-card); border: 1px solid var(--c-border);
-  border-radius: var(--r); padding: 1.5rem 1.4rem;
-  position: relative; overflow: hidden;
-  transition: border-color var(--transition), transform var(--transition);
-}
-.stat-card::before {
-  content: ''; position: absolute; top: 0; left: 0;
-  width: 3px; height: 100%; background: var(--c-teal);
-}
-.stat-card:hover { border-color: var(--c-border-hi); transform: translateY(-2px); }
-.stat-num { font-size: 2rem; font-weight: 800; color: var(--c-teal); line-height: 1; }
-.stat-lbl { font-size: .75rem; color: var(--c-sub); margin-top: .3rem; font-family: 'JetBrains Mono', monospace; }
-
-/* ═══════════════════════════════════════
-   SKILLS
-═══════════════════════════════════════ */
-#skills { padding: 6rem 0; background: var(--c-surface); }
-.skills-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  border: 1px solid var(--c-border); border-radius: var(--r);
-  overflow: hidden;
-}
-.skill-cell {
-  padding: 1.6rem; border-right: 1px solid var(--c-border);
-  border-bottom: 1px solid var(--c-border);
-  background: var(--c-card); transition: background var(--transition);
-}
-.skill-cell:hover { background: var(--c-border); }
-.skill-cell:nth-child(3n) { border-right: none; }
-.skill-cell:nth-last-child(-n+3) { border-bottom: none; }
-.skill-cell h3 {
-  font-family: 'JetBrains Mono', monospace; font-size: .68rem;
-  color: var(--c-teal); letter-spacing: .12em; text-transform: uppercase;
-  margin-bottom: 1rem; font-weight: 500;
-}
-.tag-wrap { display: flex; flex-wrap: wrap; gap: .4rem; }
-.skill-tag {
-  font-family: 'JetBrains Mono', monospace; font-size: .7rem;
-  padding: .22rem .6rem; background: var(--c-teal-dim);
-  border: 1px solid rgba(15,217,188,.18); color: var(--c-sub);
-  border-radius: 3px;
-}
-
-/* ═══════════════════════════════════════
-   EXPERIENCE
-═══════════════════════════════════════ */
-#experience { padding: 6rem 0; }
-.exp-card {
-  background: var(--c-card); border: 1px solid var(--c-border);
-  border-radius: var(--r); overflow: hidden;
-}
-.exp-card-header {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  flex-wrap: wrap; gap: 1rem;
-  padding: 1.8rem 2rem 1.2rem;
-  border-bottom: 1px solid var(--c-border);
-}
-.exp-title { font-size: 1.15rem; font-weight: 700; color: var(--c-text); margin-bottom: .2rem; }
-.exp-company { font-size: .9rem; color: var(--c-teal); font-weight: 600; margin-bottom: .15rem; }
-.exp-location { font-size: .82rem; color: var(--c-sub); }
-.exp-badge {
-  font-family: 'JetBrains Mono', monospace; font-size: .72rem; font-weight: 500;
-  padding: .35rem .9rem; background: var(--c-teal-dim);
-  border: 1px solid rgba(15,217,188,.25); color: var(--c-teal);
-  border-radius: 100px; white-space: nowrap; height: fit-content;
-}
-.exp-card-body { padding: 1.6rem 2rem; }
-.exp-list { list-style: none; display: grid; gap: .75rem; }
-.exp-list li {
-  font-size: .93rem; color: var(--c-sub); line-height: 1.7;
-  padding-left: 1.3rem; position: relative;
-}
-.exp-list li::before {
-  content: ''; position: absolute; left: 0; top: .65rem;
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--c-teal);
-}
-
-/* ═══════════════════════════════════════
-   PROJECT
-═══════════════════════════════════════ */
-#project { padding: 6rem 0; background: var(--c-surface); }
-.project-card {
-  background: var(--c-card); border: 1px solid var(--c-border);
-  border-radius: var(--r); overflow: hidden;
-}
-.project-banner {
-  padding: 2.5rem 2.5rem 2rem;
-  background: linear-gradient(135deg, #0e1625 0%, #0b1e22 60%, #0e1625 100%);
-  border-bottom: 1px solid var(--c-border);
-  display: flex; justify-content: space-between; align-items: flex-end;
-  flex-wrap: wrap; gap: 1.5rem;
-}
-.project-meta { font-family: 'JetBrains Mono', monospace; font-size: .68rem; color: var(--c-dim); margin-bottom: .6rem; letter-spacing: .08em; }
-.project-name { font-size: 2rem; font-weight: 800; letter-spacing: -.03em; color: var(--c-text); margin-bottom: .3rem; }
-.project-sub { font-size: .9rem; color: var(--c-sub); }
-.project-tags { display: flex; flex-wrap: wrap; gap: .4rem; align-items: flex-start; }
-.project-tag {
-  font-family: 'JetBrains Mono', monospace; font-size: .68rem;
-  padding: .25rem .65rem; background: rgba(255,255,255,.05);
-  border: 1px solid var(--c-border); color: var(--c-sub); border-radius: 3px;
-}
-.project-cols {
-  display: grid; grid-template-columns: 1fr 1fr;
-  border-bottom: 1px solid var(--c-border);
-}
-.project-col { padding: 2rem 2.5rem; border-right: 1px solid var(--c-border); }
-.project-col:last-child { border-right: none; }
-.project-col-title {
-  font-family: 'JetBrains Mono', monospace; font-size: .65rem;
-  color: var(--c-dim); text-transform: uppercase; letter-spacing: .14em; margin-bottom: 1.1rem;
-}
-.project-col ul { list-style: none; display: grid; gap: .65rem; }
-.project-col ul li { font-size: .9rem; color: var(--c-sub); line-height: 1.65; padding-left: 1.1rem; position: relative; }
-.project-col ul li::before { content: '◆'; position: absolute; left: 0; top: .25rem; font-size: .5rem; color: var(--c-amber); }
-.project-stack {
-  padding: 1.1rem 2.5rem; display: flex; flex-wrap: wrap;
-  gap: .4rem; align-items: center; background: rgba(255,255,255,.015);
-}
-.stack-lbl { font-family: 'JetBrains Mono', monospace; font-size: .65rem; color: var(--c-dim); margin-right: .4rem; }
-
-/* ═══════════════════════════════════════
-   CAREER
-═══════════════════════════════════════ */
-#career { padding: 6rem 0; }
-.career-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-.career-card {
-  background: var(--c-card); border: 1px solid var(--c-border);
-  border-radius: var(--r); padding: 2rem;
-  transition: border-color var(--transition);
-}
-.career-card:hover { border-color: var(--c-border-hi); }
-.career-card-title {
-  font-size: .95rem; font-weight: 700; color: var(--c-text);
-  margin-bottom: 1.2rem; padding-bottom: .8rem;
-  border-bottom: 1px solid var(--c-border);
-  display: flex; align-items: center; gap: .5rem;
-}
-.career-card ul { list-style: none; display: grid; gap: .6rem; }
-.career-card ul li { font-size: .88rem; color: var(--c-sub); padding-left: 1.1rem; position: relative; line-height: 1.6; }
-.career-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--c-teal); font-size: .78rem; }
-.career-card ul li strong { color: var(--c-text); font-weight: 600; }
-
-/* ═══════════════════════════════════════
-   EDUCATION
-═══════════════════════════════════════ */
-#education { padding: 6rem 0; background: var(--c-surface); }
-.edu-list { display: grid; gap: 1px; background: var(--c-border); border: 1px solid var(--c-border); border-radius: var(--r); overflow: hidden; }
-.edu-row {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 1.4rem 1.8rem; background: var(--c-card);
-  flex-wrap: wrap; gap: 1rem;
-  transition: background var(--transition);
-}
-.edu-row:hover { background: var(--c-border); }
-.edu-degree { font-size: .97rem; font-weight: 700; color: var(--c-text); }
-.edu-inst { font-family: 'JetBrains Mono', monospace; font-size: .75rem; color: var(--c-sub); margin-top: .3rem; }
-.edu-year {
-  font-family: 'JetBrains Mono', monospace; font-size: .72rem;
-  padding: .3rem .85rem; border: 1px solid var(--c-border);
-  color: var(--c-teal); border-radius: 100px; white-space: nowrap; flex-shrink: 0;
-}
-
-/* ═══════════════════════════════════════
-   CONTACT
-═══════════════════════════════════════ */
-#contact {
-  padding: 6rem 0; text-align: center;
-  border-top: 1px solid var(--c-border);
-}
-#contact h2 { margin-bottom: .75rem; }
-#contact p { font-size: .97rem; color: var(--c-sub); max-width: 440px; margin: 0 auto 2.5rem; line-height: 1.75; }
-.contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: .9rem; }
-.contact-link {
-  display: inline-flex; align-items: center; gap: .6rem;
-  font-size: .85rem; font-weight: 500; color: var(--c-sub);
-  text-decoration: none; padding: .7rem 1.4rem;
-  background: var(--c-card); border: 1px solid var(--c-border);
-  border-radius: var(--r);
-  transition: border-color var(--transition), color var(--transition), background var(--transition);
-}
-.contact-link:hover { border-color: var(--c-teal); color: var(--c-teal); background: var(--c-teal-dim); }
-.contact-link .ping { width: 6px; height: 6px; border-radius: 50%; background: var(--c-teal); flex-shrink: 0; }
-
-/* ═══════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════ */
-footer {
-  padding: 1.6rem 5vw; text-align: center;
-  font-size: .78rem; color: var(--c-dim);
-  border-top: 1px solid var(--c-border);
-  font-family: 'JetBrains Mono', monospace;
-}
-
-/* ═══════════════════════════════════════
-   SCROLL REVEAL
-═══════════════════════════════════════ */
-.reveal { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
-.reveal.in { opacity: 1; transform: none; }
-.reveal-delay { transition-delay: .12s; }
-.reveal-delay-2 { transition-delay: .24s; }
-
-/* ═══════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════ */
-@media (max-width: 900px) {
-  #about .container { grid-template-columns: 1fr; gap: 3rem; }
-  .skills-grid { grid-template-columns: 1fr 1fr; }
-  .skill-cell:nth-child(3n) { border-right: 1px solid var(--c-border); }
-  .skill-cell:nth-child(2n) { border-right: none; }
-  .skill-cell:nth-last-child(-n+3) { border-bottom: 1px solid var(--c-border); }
-  .skill-cell:nth-last-child(-n+2) { border-bottom: none; }
-  .project-cols, .career-grid { grid-template-columns: 1fr; }
-  .project-col { border-right: none; border-bottom: 1px solid var(--c-border); }
-  .project-col:last-child { border-bottom: none; }
-  .nav-links { gap: 1.2rem; }
-}
-@media (max-width: 600px) {
-  .hero h1 { font-size: 2.5rem; }
-  .skills-grid { grid-template-columns: 1fr; }
-  .skill-cell { border-right: none; }
-  .exp-card-body { padding: 1.4rem 1.2rem; }
-  .project-col { padding: 1.4rem 1.2rem; }
-}
-</style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-brand">Dhaya <span>Chandrika</span></div>
-  <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#experience">Experience</a>
-    <a href="#project">Project</a>
-    <a href="#education">Education</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-dot-grid"></div>
-  <div class="hero-inner container" style="max-width:var(--max);padding:0 5vw;">
-    <div class="hero-status">Available for opportunities</div>
-    <h1>Backend<br><span class="accent">Engineer</span><br>&amp; API Builder</h1>
-    <p class="hero-sub">
-      I design scalable APIs, databases, and real-time systems for IoT and energy platforms.
-      <strong>2+ years</strong> building production backend infrastructure at
-      <strong>Best Infra, Hyderabad</strong>.
-    </p>
-    <div class="hero-chips">
-      <span class="hero-chip">Node.js</span>
-      <span class="hero-chip">Express.js</span>
-      <span class="hero-chip">PostgreSQL</span>
-      <span class="hero-chip">Prisma ORM</span>
-      <span class="hero-chip">REST APIs</span>
-      <span class="hero-chip">WebSockets</span>
-      <span class="hero-chip">Swagger</span>
-      <span class="hero-chip">Git</span>
-      <span class="hero-chip">PKI Auth</span>
-    </div>
-    <div class="hero-actions">
-      <a href="#project" class="btn btn-primary">View Project</a>
-      <a href="mailto:dhayachandrika@gmail.com" class="btn btn-secondary">Get in Touch</a>
-    </div>
-  </div>
-</section>
-
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track" aria-hidden="true">
-    <span class="marquee-item">Node.js<span>◆</span></span>
-    <span class="marquee-item">Express.js<span>◆</span></span>
-    <span class="marquee-item">PostgreSQL<span>◆</span></span>
-    <span class="marquee-item">REST APIs<span>◆</span></span>
-    <span class="marquee-item">Prisma ORM<span>◆</span></span>
-    <span class="marquee-item">WebSockets<span>◆</span></span>
-    <span class="marquee-item">Swagger / OpenAPI<span>◆</span></span>
-    <span class="marquee-item">PKI Authentication<span>◆</span></span>
-    <span class="marquee-item">Git &amp; GitHub<span>◆</span></span>
-    <span class="marquee-item">MySQL<span>◆</span></span>
-    <span class="marquee-item">XML Parsing<span>◆</span></span>
-    <span class="marquee-item">IoT Backend<span>◆</span></span>
-    <span class="marquee-item">Real-time Systems<span>◆</span></span>
-    <!-- duplicate for seamless loop -->
-    <span class="marquee-item">Node.js<span>◆</span></span>
-    <span class="marquee-item">Express.js<span>◆</span></span>
-    <span class="marquee-item">PostgreSQL<span>◆</span></span>
-    <span class="marquee-item">REST APIs<span>◆</span></span>
-    <span class="marquee-item">Prisma ORM<span>◆</span></span>
-    <span class="marquee-item">WebSockets<span>◆</span></span>
-    <span class="marquee-item">Swagger / OpenAPI<span>◆</span></span>
-    <span class="marquee-item">PKI Authentication<span>◆</span></span>
-    <span class="marquee-item">Git &amp; GitHub<span>◆</span></span>
-    <span class="marquee-item">MySQL<span>◆</span></span>
-    <span class="marquee-item">XML Parsing<span>◆</span></span>
-    <span class="marquee-item">IoT Backend<span>◆</span></span>
-    <span class="marquee-item">Real-time Systems<span>◆</span></span>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">// about</div>
-      <h2>Who I <em>Am</em></h2>
-    </div>
-    <div class="reveal">
-      <div class="about-body">
-        <p>I'm a <strong>Backend Software Engineer</strong> at Best Infra, Hyderabad — building the systems that power real-time energy data analytics. My work focuses on clean API design, reliable database architecture, and secure service integration.</p>
-        <p>My degree in <strong>Electronics &amp; Communication Engineering</strong> gives me a hardware perspective that's rare in backend engineers — it's invaluable when working with IoT energy meters and device-to-server data pipelines.</p>
-        <p>I believe in <strong>well-documented APIs, structured databases, and code that teams can maintain</strong> — not just systems that work today.</p>
-        <div class="about-meta">
-          <div class="meta-row"><span class="meta-icon mono">@</span> dhayachandrika@gmail.com</div>
-          <div class="meta-row"><span class="meta-icon mono">#</span> Hyderabad, Telangana, India</div>
-          <div class="meta-row"><span class="meta-icon mono">in</span> <a href="https://www.linkedin.com/in/dhaya-chandrika-vanumu/" target="_blank">linkedin.com/in/dhaya-chandrika-vanumu</a></div>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-dot-grid"></div>
+      <div
+        class="hero-inner container"
+        style="max-width: var(--max); padding: 0 5vw"
+      >
+        <div class="hero-status">Available for opportunities</div>
+        <h1>
+          Backend<br /><span class="accent">Engineer</span><br />&amp; API
+          Builder
+        </h1>
+        <p class="hero-sub">
+          I design scalable APIs, databases, and real-time systems for IoT and
+          energy platforms.
+          <strong>2+ years</strong> building production backend infrastructure
+          at <strong>Best Infra, Hyderabad</strong>.
+        </p>
+        <div class="hero-chips">
+          <span class="hero-chip">Node.js</span>
+          <span class="hero-chip">Express.js</span>
+          <span class="hero-chip">PostgreSQL</span>
+          <span class="hero-chip">Prisma ORM</span>
+          <span class="hero-chip">REST APIs</span>
+          <span class="hero-chip">WebSockets</span>
+          <span class="hero-chip">Swagger</span>
+          <span class="hero-chip">Git</span>
+          <span class="hero-chip">PKI Auth</span>
         </div>
+        <div class="hero-actions">
+          <a href="#project" class="btn btn-primary">View Project</a>
+          <a href="mailto:dhayachandrika@gmail.com" class="btn btn-secondary"
+            >Get in Touch</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-wrap">
+      <div class="marquee-track" aria-hidden="true">
+        <span class="marquee-item">Node.js<span>◆</span></span>
+        <span class="marquee-item">Express.js<span>◆</span></span>
+        <span class="marquee-item">PostgreSQL<span>◆</span></span>
+        <span class="marquee-item">REST APIs<span>◆</span></span>
+        <span class="marquee-item">Prisma ORM<span>◆</span></span>
+        <span class="marquee-item">WebSockets<span>◆</span></span>
+        <span class="marquee-item">Swagger / OpenAPI<span>◆</span></span>
+        <span class="marquee-item">PKI Authentication<span>◆</span></span>
+        <span class="marquee-item">Git &amp; GitHub<span>◆</span></span>
+        <span class="marquee-item">MySQL<span>◆</span></span>
+        <span class="marquee-item">XML Parsing<span>◆</span></span>
+        <span class="marquee-item">IoT Backend<span>◆</span></span>
+        <span class="marquee-item">Real-time Systems<span>◆</span></span>
+        <!-- duplicate for seamless loop -->
+        <span class="marquee-item">Node.js<span>◆</span></span>
+        <span class="marquee-item">Express.js<span>◆</span></span>
+        <span class="marquee-item">PostgreSQL<span>◆</span></span>
+        <span class="marquee-item">REST APIs<span>◆</span></span>
+        <span class="marquee-item">Prisma ORM<span>◆</span></span>
+        <span class="marquee-item">WebSockets<span>◆</span></span>
+        <span class="marquee-item">Swagger / OpenAPI<span>◆</span></span>
+        <span class="marquee-item">PKI Authentication<span>◆</span></span>
+        <span class="marquee-item">Git &amp; GitHub<span>◆</span></span>
+        <span class="marquee-item">MySQL<span>◆</span></span>
+        <span class="marquee-item">XML Parsing<span>◆</span></span>
+        <span class="marquee-item">IoT Backend<span>◆</span></span>
+        <span class="marquee-item">Real-time Systems<span>◆</span></span>
       </div>
     </div>
-    <div class="stat-grid reveal reveal-delay" style="margin-top:2rem;">
-      <div class="stat-card"><div class="stat-num">2+</div><div class="stat-lbl">years_experience</div></div>
-      <div class="stat-card"><div class="stat-num">IoT</div><div class="stat-lbl">domain_specialty</div></div>
-      <div class="stat-card"><div class="stat-num">1</div><div class="stat-lbl">company</div></div>
-      <div class="stat-card"><div class="stat-num">∞</div><div class="stat-lbl">apis_built</div></div>
-    </div>
-  </div>
-</section>
 
-<!-- SKILLS -->
-<section id="skills">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">// tech_stack</div>
-      <h2>Skills &amp; <em>Technologies</em></h2>
-    </div>
-    <div class="skills-grid reveal">
-      <div class="skill-cell">
-        <h3>Languages</h3>
-        <div class="tag-wrap">
-          <span class="skill-tag">JavaScript (ES6+)</span>
-          <span class="skill-tag">Node.js</span>
-          <span class="skill-tag">SQL</span>
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+        <div class="reveal">
+          <div class="section-label">// about</div>
+          <h2>Who I <em>Am</em></h2>
+        </div>
+        <div class="reveal">
+          <div class="about-body">
+            <p>
+              I'm a <strong>Backend Software Engineer</strong> at Best Infra,
+              Hyderabad — building the systems that power real-time energy data
+              analytics. My work focuses on clean API design, reliable database
+              architecture, and secure service integration.
+            </p>
+            <p>
+              My degree in
+              <strong>Electronics &amp; Communication Engineering</strong> gives
+              me a hardware perspective that's rare in backend engineers — it's
+              invaluable when working with IoT energy meters and
+              device-to-server data pipelines.
+            </p>
+            <p>
+              I believe in
+              <strong
+                >well-documented APIs, structured databases, and code that teams
+                can maintain</strong
+              >
+              — not just systems that work today.
+            </p>
+            <div class="about-meta">
+              <div class="meta-row">
+                <span class="meta-icon mono">@</span> dhayachandrika@gmail.com
+              </div>
+              <div class="meta-row">
+                <span class="meta-icon mono">#</span> Hyderabad, Telangana,
+                India
+              </div>
+              <div class="meta-row">
+                <span class="meta-icon mono">in</span>
+                <a
+                  href="https://www.linkedin.com/in/dhaya-chandrika-vanumu/"
+                  target="_blank"
+                  >linkedin.com/in/dhaya-chandrika-vanumu</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-grid reveal reveal-delay" style="margin-top: 2rem">
+          <div class="stat-card">
+            <div class="stat-num">2+</div>
+            <div class="stat-lbl">years_experience</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">IoT</div>
+            <div class="stat-lbl">domain_specialty</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">1</div>
+            <div class="stat-lbl">company</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">∞</div>
+            <div class="stat-lbl">apis_built</div>
+          </div>
         </div>
       </div>
-      <div class="skill-cell">
-        <h3>Backend</h3>
-        <div class="tag-wrap">
-          <span class="skill-tag">Express.js</span>
-          <span class="skill-tag">REST APIs</span>
-          <span class="skill-tag">WebSockets</span>
-        </div>
-      </div>
-      <div class="skill-cell">
-        <h3>Databases</h3>
-        <div class="tag-wrap">
-          <span class="skill-tag">PostgreSQL</span>
-          <span class="skill-tag">MySQL</span>
-          <span class="skill-tag">Prisma ORM</span>
-        </div>
-      </div>
-      <div class="skill-cell">
-        <h3>API &amp; Docs</h3>
-        <div class="tag-wrap">
-          <span class="skill-tag">Swagger</span>
-          <span class="skill-tag">OpenAPI 3.0</span>
-          <span class="skill-tag">Postman</span>
-        </div>
-      </div>
-      <div class="skill-cell">
-        <h3>Security &amp; Auth</h3>
-        <div class="tag-wrap">
-          <span class="skill-tag">PKI / Keypairs</span>
-          <span class="skill-tag">JWT</span>
-          <span class="skill-tag">HTTPS</span>
-        </div>
-      </div>
-      <div class="skill-cell">
-        <h3>Version Control</h3>
-        <div class="tag-wrap">
-          <span class="skill-tag">Git</span>
-          <span class="skill-tag">GitHub</span>
-          <span class="skill-tag">GitLab</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">// experience</div>
-      <h2>Work <em>Experience</em></h2>
-    </div>
-    <div class="exp-card reveal">
-      <div class="exp-card-header">
-        <div>
-          <div class="exp-title">Software Engineer</div>
-          <div class="exp-company">Best Infra</div>
-          <div class="exp-location">Hyderabad, India</div>
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="container">
+        <div class="reveal">
+          <div class="section-label">// tech_stack</div>
+          <h2>Skills &amp; <em>Technologies</em></h2>
         </div>
-        <span class="exp-badge">Dec 2023 — Present</span>
+        <div class="skills-grid reveal">
+          <div class="skill-cell">
+            <h3>Languages</h3>
+            <div class="tag-wrap">
+              <span class="skill-tag">JavaScript (ES6+)</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">SQL</span>
+            </div>
+          </div>
+          <div class="skill-cell">
+            <h3>Backend</h3>
+            <div class="tag-wrap">
+              <span class="skill-tag">Express.js</span>
+              <span class="skill-tag">REST APIs</span>
+              <span class="skill-tag">WebSockets</span>
+            </div>
+          </div>
+          <div class="skill-cell">
+            <h3>Databases</h3>
+            <div class="tag-wrap">
+              <span class="skill-tag">PostgreSQL</span>
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">Prisma ORM</span>
+            </div>
+          </div>
+          <div class="skill-cell">
+            <h3>API &amp; Docs</h3>
+            <div class="tag-wrap">
+              <span class="skill-tag">Swagger</span>
+              <span class="skill-tag">OpenAPI 3.0</span>
+              <span class="skill-tag">Postman</span>
+            </div>
+          </div>
+          <div class="skill-cell">
+            <h3>Security &amp; Auth</h3>
+            <div class="tag-wrap">
+              <span class="skill-tag">PKI / Keypairs</span>
+              <span class="skill-tag">JWT</span>
+              <span class="skill-tag">HTTPS</span>
+            </div>
+          </div>
+          <div class="skill-cell">
+            <h3>Version Control</h3>
+            <div class="tag-wrap">
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">GitHub</span>
+              <span class="skill-tag">GitLab</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="exp-card-body">
-        <ul class="exp-list">
-          <li>Designed and developed scalable RESTful APIs using Node.js and Express.js for the MDMS energy analytics platform, serving real-time data from smart energy meters.</li>
-          <li>Architected a new PostgreSQL relational database schema using Prisma ORM, ensuring data integrity, optimised queries, and clean migration workflows.</li>
-          <li>Built a high-throughput XML-to-database ingestion pipeline to parse and store bulk energy meter readings, eliminating manual data processing overhead.</li>
-          <li>Implemented PKI-based (public/private key) authentication enabling a single mobile application to communicate securely across multiple backend services.</li>
-          <li>Integrated WebSocket connections for real-time energy meter data streaming to live analytics dashboards with low latency.</li>
-          <li>Authored comprehensive Swagger/OpenAPI documentation for all endpoints — adopted as the source of truth by frontend and QA teams.</li>
-          <li>Managed source code, branching strategies, pull requests, and code reviews using Git, GitHub, and GitLab.</li>
-          <li>Collaborated on microservices architecture and cross-backend integration design decisions with the engineering team.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- PROJECT -->
-<section id="project">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">// featured_project</div>
-      <h2>Key <em>Project</em></h2>
-    </div>
-    <div class="project-card reveal">
-      <div class="project-banner">
-        <div>
-          <div class="project-meta">PROJECT_01 · ENERGY TECH · 2023–PRESENT</div>
-          <div class="project-name">MDMS</div>
-          <div class="project-sub">Meter Data Management System — Best Infra</div>
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="container">
+        <div class="reveal">
+          <div class="section-label">// experience</div>
+          <h2>Work <em>Experience</em></h2>
         </div>
-        <div class="project-tags">
-          <span class="project-tag">Node.js</span>
-          <span class="project-tag">PostgreSQL</span>
-          <span class="project-tag">Prisma</span>
-          <span class="project-tag">WebSockets</span>
-          <span class="project-tag">PKI Auth</span>
-          <span class="project-tag">Swagger</span>
-          <span class="project-tag">Git</span>
+        <div class="exp-card reveal">
+          <div class="exp-card-header">
+            <div>
+              <div class="exp-title">Software Engineer</div>
+              <div class="exp-company">Best Infra</div>
+              <div class="exp-location">Hyderabad, India</div>
+            </div>
+            <span class="exp-badge">Dec 2023 — Present</span>
+          </div>
+          <div class="exp-card-body">
+            <ul class="exp-list">
+              <li>
+                Designed and developed scalable RESTful APIs using Node.js and
+                Express.js for the MDMS energy analytics platform, serving
+                real-time data from smart energy meters.
+              </li>
+              <li>
+                Architected a new PostgreSQL relational database schema using
+                Prisma ORM, ensuring data integrity, optimised queries, and
+                clean migration workflows.
+              </li>
+              <li>
+                Built a high-throughput XML-to-database ingestion pipeline to
+                parse and store bulk energy meter readings, eliminating manual
+                data processing overhead.
+              </li>
+              <li>
+                Implemented PKI-based (public/private key) authentication
+                enabling a single mobile application to communicate securely
+                across multiple backend services.
+              </li>
+              <li>
+                Integrated WebSocket connections for real-time energy meter data
+                streaming to live analytics dashboards with low latency.
+              </li>
+              <li>
+                Authored comprehensive Swagger/OpenAPI documentation for all
+                endpoints — adopted as the source of truth by frontend and QA
+                teams.
+              </li>
+              <li>
+                Managed source code, branching strategies, pull requests, and
+                code reviews using Git, GitHub, and GitLab.
+              </li>
+              <li>
+                Collaborated on microservices architecture and cross-backend
+                integration design decisions with the engineering team.
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="project-cols">
-        <div class="project-col">
-          <div class="project-col-title">What I Built</div>
-          <ul>
-            <li>Complete REST API backend with Node.js &amp; Express for energy meter data collection</li>
-            <li>PostgreSQL schema architecture via Prisma ORM — designed from scratch</li>
-            <li>XML-to-database bulk ingestion parser for automated meter reading processing</li>
-            <li>WebSocket server enabling real-time live dashboard updates from meters</li>
-            <li>Full Swagger/OpenAPI documentation suite across all endpoints</li>
-          </ul>
-        </div>
-        <div class="project-col">
-          <div class="project-col-title">Impact &amp; Highlights</div>
-          <ul>
-            <li>PKI keypair auth enabling one mobile app to securely connect multiple backends</li>
-            <li>Owned the full backend architecture — built all major systems ground up</li>
-            <li>Eliminated manual XML data processing via automated ingestion pipeline</li>
-            <li>API documentation adopted company-wide as the engineering source of truth</li>
-            <li>Real-time dashboards powered by WebSocket streaming across multiple sites</li>
-          </ul>
-        </div>
-      </div>
-      <div class="project-stack">
-        <span class="stack-lbl">Stack:</span>
-        <span class="skill-tag">Node.js</span>
-        <span class="skill-tag">Express.js</span>
-        <span class="skill-tag">PostgreSQL</span>
-        <span class="skill-tag">MySQL</span>
-        <span class="skill-tag">Prisma ORM</span>
-        <span class="skill-tag">WebSockets</span>
-        <span class="skill-tag">Swagger</span>
-        <span class="skill-tag">PKI Auth</span>
-        <span class="skill-tag">Git / GitHub</span>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- EDUCATION -->
-<section id="education">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">// education</div>
-      <h2>Academic <em>Background</em></h2>
-    </div>
-    <div class="edu-list reveal">
-      <div class="edu-row">
-        <div>
-          <div class="edu-degree">B.Tech — Electronics &amp; Communication Engineering</div>
-          <div class="edu-inst">V.S.M College of Engineering, Ramachandrapuram</div>
+    <!-- PROJECT -->
+    <section id="project">
+      <div class="container">
+        <div class="reveal">
+          <div class="section-label">// featured_project</div>
+          <h2>Key <em>Project</em></h2>
         </div>
-        <span class="edu-year">2020 – 2023</span>
-      </div>
-      <div class="edu-row">
-        <div>
-          <div class="edu-degree">Diploma — Electronics &amp; Communication Engineering</div>
-          <div class="edu-inst">Government Polytechnic for Women, Kakinada</div>
+        <div class="project-card reveal">
+          <div class="project-banner">
+            <div>
+              <div class="project-meta">
+                PROJECT_01 · ENERGY TECH · 2023–PRESENT
+              </div>
+              <div class="project-name">MDMS</div>
+              <div class="project-sub">
+                Meter Data Management System — Best Infra
+              </div>
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">Node.js</span>
+              <span class="project-tag">PostgreSQL</span>
+              <span class="project-tag">Prisma</span>
+              <span class="project-tag">WebSockets</span>
+              <span class="project-tag">PKI Auth</span>
+              <span class="project-tag">Swagger</span>
+              <span class="project-tag">Git</span>
+            </div>
+          </div>
+          <div class="project-cols">
+            <div class="project-col">
+              <div class="project-col-title">What I Built</div>
+              <ul>
+                <li>
+                  Complete REST API backend with Node.js &amp; Express for
+                  energy meter data collection
+                </li>
+                <li>
+                  PostgreSQL schema architecture via Prisma ORM — designed from
+                  scratch
+                </li>
+                <li>
+                  XML-to-database bulk ingestion parser for automated meter
+                  reading processing
+                </li>
+                <li>
+                  WebSocket server enabling real-time live dashboard updates
+                  from meters
+                </li>
+                <li>
+                  Full Swagger/OpenAPI documentation suite across all endpoints
+                </li>
+              </ul>
+            </div>
+            <div class="project-col">
+              <div class="project-col-title">Impact &amp; Highlights</div>
+              <ul>
+                <li>
+                  PKI keypair auth enabling one mobile app to securely connect
+                  multiple backends
+                </li>
+                <li>
+                  Owned the full backend architecture — built all major systems
+                  ground up
+                </li>
+                <li>
+                  Eliminated manual XML data processing via automated ingestion
+                  pipeline
+                </li>
+                <li>
+                  API documentation adopted company-wide as the engineering
+                  source of truth
+                </li>
+                <li>
+                  Real-time dashboards powered by WebSocket streaming across
+                  multiple sites
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="project-stack">
+            <span class="stack-lbl">Stack:</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Express.js</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">Prisma ORM</span>
+            <span class="skill-tag">WebSockets</span>
+            <span class="skill-tag">Swagger</span>
+            <span class="skill-tag">PKI Auth</span>
+            <span class="skill-tag">Git / GitHub</span>
+          </div>
         </div>
-        <span class="edu-year">2017 – 2020</span>
       </div>
-      <div class="edu-row">
-        <div>
-          <div class="edu-degree">Secondary School Certificate (SSC)</div>
-          <div class="edu-inst">State Board, Andhra Pradesh</div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="container">
+        <div class="reveal">
+          <div class="section-label">// education</div>
+          <h2>Academic <em>Background</em></h2>
         </div>
-        <span class="edu-year">2017</span>
+        <div class="edu-list reveal">
+          <div class="edu-row">
+            <div>
+              <div class="edu-degree">
+                B.Tech — Electronics &amp; Communication Engineering
+              </div>
+              <div class="edu-inst">
+                V.S.M College of Engineering, Ramachandrapuram
+              </div>
+            </div>
+            <span class="edu-year">2020 – 2023</span>
+          </div>
+          <div class="edu-row">
+            <div>
+              <div class="edu-degree">
+                Diploma — Electronics &amp; Communication Engineering
+              </div>
+              <div class="edu-inst">
+                Government Polytechnic for Women, Kakinada
+              </div>
+            </div>
+            <span class="edu-year">2017 – 2020</span>
+          </div>
+          <div class="edu-row">
+            <div>
+              <div class="edu-degree">Secondary School Certificate (SSC)</div>
+              <div class="edu-inst">State Board, Andhra Pradesh</div>
+            </div>
+            <span class="edu-year">2017</span>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="container">
-    <div class="section-label">// contact</div>
-    <h2>Get In <em>Touch</em></h2>
-    <p>Open to backend, full-stack, and IoT engineering opportunities. Always happy to connect.</p>
-    <div class="contact-links">
-      <a class="contact-link" href="mailto:dhayachandrika@gmail.com">
-        <span class="ping"></span>dhayachandrika@gmail.com
-      </a>
-      <a class="contact-link" href="https://www.linkedin.com/in/dhaya-chandrika-vanumu/" target="_blank" rel="noopener">
-        <span class="ping"></span>LinkedIn Profile
-      </a>
-      <a class="contact-link" href="#">
-        <span class="ping"></span>Hyderabad, India
-      </a>
-    </div>
-  </div>
-</section>
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-label">// contact</div>
+        <h2>Get In <em>Touch</em></h2>
+        <p>
+          Open to backend, full-stack, and IoT engineering opportunities. Always
+          happy to connect.
+        </p>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:dhayachandrika@gmail.com">
+            <span class="ping"></span>dhayachandrika@gmail.com
+          </a>
+          <a
+            class="contact-link"
+            href="https://www.linkedin.com/in/dhaya-chandrika-vanumu/"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="ping"></span>LinkedIn Profile
+          </a>
+          <a class="contact-link" href="#">
+            <span class="ping"></span>Hyderabad, India
+          </a>
+        </div>
+      </div>
+    </section>
 
-<footer>© 2026 Dhaya Chandrika Vanumu · Backend Software Engineer · Hyderabad, India</footer>
+    <footer>
+      © 2026 Dhaya Chandrika Vanumu · Backend Software Engineer · Hyderabad,
+      India
+    </footer>
 
-<script>
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
